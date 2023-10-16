@@ -1,9 +1,10 @@
-
+require('dotenv').config()
 const express=require("express")
 const mongoose=require("mongoose")
 const {Ticket}=require("./Models/MoviesTicket")
 const cors = require('cors')
-
+const PORT=process.env.PORT || 8080
+const DB_NAME=process.env.DB_NAME
 const bodyParser=require('body-parser')
 const api=require("./routes/api.js")
 
@@ -15,7 +16,7 @@ app.use(cors())
 app.use("/api",api)
 
 // database connection
-mongoose.connect("mongodb://0.0.0.0:27017/bookMyShow")
+mongoose.connect(DB_NAME)
 .then(()=>
 {
     console.log("database Connected")
@@ -23,7 +24,7 @@ mongoose.connect("mongodb://0.0.0.0:27017/bookMyShow")
 .catch(error=>console.log("error",error))
 
 // server running
-app.listen(8080,()=>
+app.listen(PORT,()=>
 {
     console.log('Server Running')
 })
